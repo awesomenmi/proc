@@ -7,10 +7,6 @@ users = dict()
 format_str = "{:<8.8} {:>5} {:>7} {:>7} {:<4} {:}"
 
 
-def get_processes():
-    return [os.path.basename(f) for f in glob.glob('/proc/[0-9]*')]
-
-
 def read_proc_pid_file(pid, filename):
     path = '/proc/%s/%s' % (pid, filename)
     with open(path, 'r') as fp:
@@ -55,6 +51,10 @@ def get_cmd(pid, status_rows):
     name = name_str.split('/')[0]
 
     return "[%s]" % name
+
+
+def get_processes():
+    return [os.path.basename(f) for f in glob.glob('/proc/[0-9]*')]
 
 def print_process(pid):
     stat = read_proc_pid_file(pid, 'stat')[0].split()
